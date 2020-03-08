@@ -1,17 +1,37 @@
+<% @user ||= current_user %>
 <table class="table">
-		<tr><%= attachment_image_tag(user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %></tr>
+	<tr><%= attachment_image_tag(user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %></tr>
 
-		<tr>
-			<th>name</th>
-			<th><%= user.name %></th>
-		</tr>
+	<tr>
+		<th>name</th>
+		<th><%= user.name %></th>
+	</tr>
 
-		<tr>
-			<th>introduction</th>
-			<th><%= user.introduction %></th>
-		</tr>
+	<tr>
+		<th>introduction</th>
+		<th><%= user.introduction %></th>
+	</tr>
+	<tr class="stats">
+		<th>
+			<a href="<%= following_user_path(@user)%>">
+				<%# idを指定しているとajaxを使うときに便利 %>
+				<strong id="following" class="stat">
+					<%# （モデルの）関連付けを使って人数を計算 %>
+					<%= @user.following.count%>
+				</strong>
+				following
+			</a></th>
+		<th>
+			<a href="<%= followers_user_path(@user)%>">
+				<strong id="followers" class="stat">
+					<%# こちらも関連付けを使って計算 %>
+					<%= @user.followers.count%>
+				</strong>
+				followers
+			</a></th>
+	</tr>
 </table>
-
+<%= render "follow_form" if @user!=current_user %>
 <div class="row">
 	<%= link_to '編集',edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
 </div>
