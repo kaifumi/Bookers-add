@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 	before_action :baria_user, only: [:update]
-	before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
+	before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
 
   def show
   	@user = User.find(params[:id])
@@ -33,6 +33,22 @@ class UsersController < ApplicationController
   		@book = Book.new
   		render "show"
   	end
+  end
+
+	def following
+		@title = "フォロー一覧"
+    @user  = User.find(params[:id])
+		@users = @user.following.paginate(page: params[:page])
+		@book = Book.new
+    render 'show_follow'
+  end
+
+	def followers
+		@title = "フォロワー一覧"
+    @user  = User.find(params[:id])
+		@users = @user.followers.paginate(page: params[:page])
+		@book = Book.new
+    render 'show_follow'
   end
 
   private

@@ -20,7 +20,7 @@
 					<%# （モデルの）関連付けを使って人数を計算 %>
 					<%= @user.following.count%>
 				</strong>
-				following
+				フォロー
 			</a></th>
 		<th>
 			<a href="<%= followers_user_path(@user)%>">
@@ -28,7 +28,7 @@
 					<%# こちらも関連付けを使って計算 %>
 					<%= @user.followers.count%>
 				</strong>
-				followers
+				フォロワー
 			</a></th>
 	</tr>
 </table>
