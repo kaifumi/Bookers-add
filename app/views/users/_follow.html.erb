@@ -1,6 +1,6 @@
 <%# ユーザーをフォローするフォーム %>
 <%# buildメソッドとnewメソッドは同じエイリアス(=同じ識別) %>
-<%= form_for(current_user.active_relationships.build) do |f|%>
+<%= form_for(current_user.active_relationships.build,remote: true) do |f|%>
   <%# 隠しフィールドのinputタグになる。ブラウザ上に表示せずに適切な情報を含むことができる %>
   <div><%= hidden_field_tag :followed_id,@user.id %></div>
   <%= f.submit "Follow",class:"btn btn-success"%>

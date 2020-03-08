@@ -3,7 +3,7 @@
 	<div class="col-xs-3">
 
 		<h2>User info</h2>
-		<%= render 'users/profile', user: @user %>
+		<%= render 'users/profile', user: current_user %>
 
 		<h2>New book</h2>
 		<%= render 'books/newform', book: @book_new %>
@@ -33,16 +33,16 @@
 					<% end %></td>
 					<td>
 					<% if @book.post_comments.present? %>
-						<%= link_to "#{@book.post_comments.count}", book_post_comments_path(@book.id) ,class:"fas fa-comment-dots"%>
+						<%= link_to "#{@book.post_comments.count}", book_path(@book.id) ,class:"fas fa-comment-dots"%>
 					<%else%>
-						<%= link_to "#{@book.post_comments.count}", book_post_comments_path(@book.id) ,class:"far fa-comment-dots"%>
+						<%= link_to "#{@book.post_comments.count}", book_path(@book.id) ,class:"far fa-comment-dots"%>
 					<%end%></td>
 				<%end%>
 			</tr>
 		</table>
 			
 		<div class="float-wrapper">
-			<h2 class="comment-count"><%= @post_comments.count %>件コメント</h2>
+			<h2 class="comment-count">コメント<%= @post_comments.count %>件</h2>
 		</div>
 
 		<ol>

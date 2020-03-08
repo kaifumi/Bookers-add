@@ -41,9 +41,9 @@
 					</td>
 					<td>
 						<% if book.post_comments.present? %>
-							<%= link_to "#{book.post_comments.count}", book_post_comments_path(book.id) ,class:"fas fa-comment-dots"%>
+							<%= link_to "#{book.post_comments.count}", book_path(book) ,class:"fas fa-comment-dots"%>
 						<%else%>
-							<%= link_to "#{book.post_comments.count}", book_post_comments_path(book.id) ,class:"far fa-comment-dots"%>
+							<%= link_to "#{book.post_comments.count}", book_path(book) ,class:"far fa-comment-dots"%>
 						<%end%>
 					</td>
 				</tr>

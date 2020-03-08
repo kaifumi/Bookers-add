@@ -1,3 +1,4 @@
+<% @user ||= current_user %>
 <div class="row">
 	<div class="col-xs-3">
 		<h2>User info</h2>
@@ -24,6 +25,9 @@
 				<tr>
 					<td><%= attachment_image_tag(user, :profile_image, :fill, 50, 50, fallback: "no-image-mini.jpg") %></td>
 					<td><%= user.name%></td>
+					<td>フォロー数:<%= user.following.count%></td>
+					<td>フォロワー数:<%= user.followers.count%></td>
+
 					<td><%= link_to "Show", user, class: "user_#{user.id}" %></td>
 				</tr>
 				<% end %>
