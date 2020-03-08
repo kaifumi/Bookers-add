@@ -3,15 +3,15 @@ class BooksController < ApplicationController
 
   def show
 	  @book = Book.find(params[:id])
-	  @user=@book.user
+	  @user=current_user
 	  @book_new=Book.new
 	  @post_comments=PostComment.where(book_id:params[:id])
 	  @post_comment=PostComment.new
   end
 
   def index
-	@user=current_user
-	@book=Book.new
+		@user=current_user
+		@book=Book.new
   	@books = Book.all #一覧表示するためにBookモデルの情報を全てくださいのall
   end
 

@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+# include ApplicationHelper
+
 	before_action :authenticate_user!, except: [:top, :about]
 	before_action :configure_permitted_parameters, if: :devise_controller?
 	#デバイス機能実行前にconfigure_permitted_parametersの実行をする。
@@ -18,5 +20,13 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
     devise_parameter_sanitizer.permit(:sign_in, keys: [:name])
     #sign_upの際にnameのデータ操作を許。追加したカラム。
+  end
+
+  # ユーザーのログインを確認する
+  def logged_in_user
+    unless current_user.present?
+      flash[:danger] = "Please log in."
+      redirect_to new_user_session_path
+    end
   end
 end
