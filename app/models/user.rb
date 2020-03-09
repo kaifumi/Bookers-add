@@ -51,4 +51,23 @@ class User < ApplicationRecord
   def following?(other_user)
     following.include?(other_user)
   end
+
+  # Userの検索機能
+	def self.search(method,word)
+		# 完全一致検索
+		if method=="1"
+			User.where("name LIKE?","#{word}")
+		# 前方一致検索
+		elsif method=="2"
+			User.where("name LIKE?","#{word}%")
+		# 後方一致検索
+    elsif method=="3"
+      User.where("name LIKE?","%#{word}")
+		# 部分一致
+		elsif method=="4"
+			User.where("name LIKE ?", "%#{word}%")
+		else
+			User.all
+		end
+	end
 end
