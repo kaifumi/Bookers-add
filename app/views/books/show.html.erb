@@ -13,6 +13,7 @@
 	<div class="col-xs-9">
 		<h2>Book detail</h2>
 
+		
 		<table class="table">
 			<tr>
 				<td>
@@ -23,60 +24,29 @@
 				</td>
 				<td><%= link_to @book.title, @book %></td>
 				<td><%= @book.body %></td>
-				<% if user_signed_in? && @book.user_id==current_user.id%>
-					<td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
-					<td><%= link_to "Destroy",@book, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
-					<td><% if current_user.already_favorited?(@book) %>
-						<%= link_to @book.favorited_users.count, book_favorites_path(@book), method: :delete ,class: 'fas fa-kiss-wink-heart favorite'%>
-					<% else %>
-						<%= link_to @book.favorited_users.count, book_favorites_path(@book), method: :post ,class: 'far fa-kiss-wink-heart'%>
-					<% end %></td>
-					<td>
+				<td>
+					<%# ajaxで部分的に更新用にdiv、idでくくる %>
+					<div id="favorites_buttons_<%=@book.id%>">
+						<%= render partial: 'favorites/favorite', locals: { book: @book} %>
+					</div></td>
+				<td>
 					<% if @book.post_comments.present? %>
 						<%= link_to "#{@book.post_comments.count}", book_path(@book.id) ,class:"fas fa-comment-dots"%>
 					<%else%>
 						<%= link_to "#{@book.post_comments.count}", book_path(@book.id) ,class:"far fa-comment-dots"%>
 					<%end%></td>
+				<% if user_signed_in? && @book.user_id==current_user.id%>
+					<td><%= link_to "Edit",edit_book_path(@book), class: "btn-sm btn-success edit_book_#{@book.id}" %></td>
+					<td><%= link_to "Destroy",@book, method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger destroy_book_#{@book.id}" %></td>
 				<%end%>
 			</tr>
 		</table>
+
 			
-		<div class="float-wrapper">
-			<h2 class="comment-count">コメント<%= @post_comments.count %>件</h2>
+		<div id="comments_<%= @book.id%>">
+			<%= render partial: 'post_comments/post_comment', 
+									locals: {book: @book, post_comments: @post_comments, post_comment: @post_comment} %>
 		</div>
-
-		<ol>
-			<% @post_comments.each do |post_comment| %>
-				<li class="comment">
-					<div class="comment-body bb">
-						<div class="comment-text">
-							<div class="comment-author clearfix">
-								<a href="#" class="link-author"><%= post_comment.user.name %></a>
-								<span class="comment-meta">
-								<span class="comment-date"><%= post_comment.created_at.strftime('%Y/%m/%d') %></span>
-								</span>
-							</div>
-							<div class="comment-entry">
-								<%= post_comment.comment %>
-								<% if user_signed_in? && @book.user_id==current_user.id%>
-									<%= link_to "削除",book_post_comment_path(post_comment),method: :delete%>
-								<%end%>
-							</div>
-						</div>
-					</div>
-				</li>
-			<% end %>
-		</ol>
-
-		<h2>新規コメント</h2>
-		<%= form_for @post_comment,url:book_post_comments_path(@book.id),method: :post do |f| %>
-			<div class="row">
-				<div class="col-sm-12">
-					<%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
-				</div>
-			</div>
-			<%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
-		<% end %>
 	</div>
 </div>
 
