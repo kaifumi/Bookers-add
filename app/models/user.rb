@@ -61,8 +61,8 @@ class User < ApplicationRecord
 		elsif method=="2"
 			User.where("name LIKE?","#{word}%")
 		# 後方一致検索
+    elsif method=="3"
       User.where("name LIKE?","%#{word}")
-		elsif method=="3"
 		# 部分一致
 		elsif method=="4"
 			User.where("name LIKE ?", "%#{word}%")
