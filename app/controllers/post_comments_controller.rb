@@ -12,6 +12,7 @@ class PostCommentsController < ApplicationController
         comment.save!
         @post_comments=PostComment.where(book_id:params[:book_id])
         @post_comment=PostComment.new
+        render "change"
         # redirect_to book_path(params[:book_id])
         
     end
@@ -22,6 +23,7 @@ class PostCommentsController < ApplicationController
         comment.destroy
         @post_comments=PostComment.where(book_id:params[:book_id])
         @post_comment=PostComment.new
+        render "change"
         # redirect_to book_path(params[:book_id])
     end
 
