@@ -1,0 +1,33 @@
+<h2 class="comment-count">コメント<%= post_comments.count %>件</h2>
+<ol>
+  <% post_comments.each do |p_comment| %>
+    <li class="comment">
+      <div class="comment-body bb">
+        <div class="comment-text">
+          <div class="comment-author clearfix">
+            <a href="#" class="link-author"><%= p_comment.user.name %></a>
+            <span class="comment-meta">
+            <span class="comment-date"><%= p_comment.created_at.strftime('%Y/%m/%d') %></span>
+            </span>
+          </div>
+          <div class="comment-entry">
+            <%= p_comment.comment %>
+            <% if user_signed_in? && book.user_id==current_user.id%>
+              <%= link_to "削除",book_post_comment_path(id:p_comment.id,book_id:book.id),method: :delete, remote: true%>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ol>
+
+<h2>新規コメント</h2>
+<%= form_for post_comment,url:book_post_comments_path(book_id:book.id),method: :post,remote: true do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+    </div>
+  </div>
+  <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+<% end %>
