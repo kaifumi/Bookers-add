@@ -13,6 +13,7 @@ class PostCommentsController < ApplicationController
         @post_comments=PostComment.where(book_id:params[:book_id])
         @post_comment=PostComment.new
         # redirect_to book_path(params[:book_id])
+        
     end
 
     def destroy
