@@ -2,6 +2,7 @@ class UsersController < ApplicationController
 	before_action :baria_user, only: [:update]
 	before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers]
 
+
   def show
   	@user = User.find(params[:id])
   	@books = @user.books
@@ -50,6 +51,18 @@ class UsersController < ApplicationController
 		@book = Book.new
     render 'show_follow'
   end
+
+		
+	# メール送信機能
+	def create
+		if @user.save
+			NotificationMailer.send_confirm_to_user(@user).deliver
+			redirect_to @user
+		else
+			render 'new'
+		end
+	end
+
 
   private
   def user_params
