@@ -4,7 +4,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable,:validatable
 
-        #  :trackable,　これはずしてみた
+  def user_address
+    "%s %s"%([self.address_city,self.address_street])
+  end
+  
+  # グーグルマップで指定した住所に表示する用
+  geocoded_by :user_address
+  after_validation :geocode
+
 
   has_many :books,dependent: :destroy
   has_many :favorites, dependent: :destroy
@@ -69,5 +76,29 @@ class User < ApplicationRecord
 		else
 			User.all
 		end
-	end
+  end
+  
+  # 住所検索機能
+  
+  include JpPrefecture
+  jp_prefecture :prefecture_code
+  
+  def prefecture_name
+    JpPrefecture::Prefecture.find(code: prefecture_code).try(:name)
+  end
+  
+  def prefecture_name=(prefecture_name)
+    self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
+  end
+
+
+  # def geocode
+  #   uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?full_address="+self.full_address.gsub(" ", "")+"&key=AIzaSyDW0GOeuDWuLqYivC7vBa1qn7cNdj0Qadw")
+  #   res = HTTP.get(uri).to_s
+  #   response = JSON.parse(res)
+  #   self.latitude = response["results"][0]["geometry"]["location"]["lat"]
+  #   self.longitude = response["results"][0]["geometry"]["location"]["lng"]
+  # end
+
+  
 end

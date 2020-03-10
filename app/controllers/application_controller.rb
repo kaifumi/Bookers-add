@@ -17,7 +17,9 @@ class ApplicationController < ActionController::Base
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :email,:postcode,
+                  :address_city,:prefecture_code,:address_street,:address_building,
+                  :latitude,:longitude])
     devise_parameter_sanitizer.permit(:sign_in, keys: [:name])
     #sign_upの際にnameのデータ操作を許。追加したカラム。
   end
@@ -29,4 +31,5 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_session_path
     end
   end
+
 end

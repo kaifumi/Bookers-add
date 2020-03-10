@@ -5,33 +5,50 @@
 
   <!--name表示の追加-->
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :アカウント名 %><br />
     <%= f.text_field :name, autofocus: true, class: "name" %>
   </div>
   <!--name表示の追加-->
 
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :メールアドレス %><br />
     <%= f.text_field :email, autofocus: true, class: "email" %>
+  </div><br />
+
+  <div class="field">
+    <%= f.label :郵便番号 %><br />
+    <%= f.text_field :postcode, autofocus: true, placeholder: 'postcode', class: "postcode", id: "address_zipcode" %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :都道府県 %><br>
+    <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :code, :name, class: "address" %><br>
+    <%= f.label :市区町村 %><br>
+    <%= f.text_field :address_city, autofocus: true, placeholder: 'city', class: "address" %><br>
+    <%= f.label :番地以下 %><br>
+    <%= f.text_field :address_street, autofocus: true, placeholder: 'street', class: "address"%><br>
+    <%= f.label :建物名 %><br>
+    <%= f.text_field :address_building, autofocus: true, placeholder: 'building', class: "address" %>
+  </div><br />
+
+  <%# パスワード入力 %>
+  <div class="field">
+    <%= f.label :パスワード %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <em>(<%= @minimum_password_length %>文字以上)</em>
     <% end %><br />
     <%= f.text_field :password, autocomplete: "new-password", class: "password" %>
   </div>
 
 <!--パスワード確認入力フォーム-->
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :パスワード確認 %><br />
     <%= f.text_field :password_confirmation, autocomplete: "new-password", class: "password_confirm" %>
-  </div>
+  </div><br />
 
   <div class="actions">
     <%= f.submit "Sign up",class: "btn btn-success" %>
   </div>
 <% end %>
-
+<br />
 <%= render "devise/shared/links" %>

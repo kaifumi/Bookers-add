@@ -80,3 +80,14 @@ gem "byebug"
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+
+# 都道府県コードと都道府県名を変換するGem
+gem 'jp_prefecture'
+
+
+gem "gmaps4rails"
+gem "geocoder"
+
+gem 'dotenv-rails'
+
+gem 'http'
