@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  devise_for :users, controllers: {       # ← 恐らく最初は”devise_for:”のみの記載かと
+    registrations: "users/registrations"
+  }
   get 'search/search',as:"search"
   root 'home#top'
   get 'home/about'
-  devise_for :users
   resources :users,only: [:show,:index,:edit,:update] do
     # memberメソッドを使うとユーザーIDを含んで指定のURLを生成する
     member do

@@ -70,8 +70,13 @@ ActiveRecord::Schema.define(version: 2020_03_10_024027) do
     t.string "address_city"
     t.string "address_street"
     t.string "address_building"
+    t.string "address"
     t.float "latitude"
     t.float "longitude"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.index ["email"], name: "index_users_on_email"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
