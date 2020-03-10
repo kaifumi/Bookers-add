@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
   	@books = @user.books
-  	@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
+		@book = Book.new #new bookの新規投稿で必要（保存処理はbookコントローラー側で実施）
   end
 
   def index
@@ -53,7 +53,8 @@ class UsersController < ApplicationController
 
   private
   def user_params
-  	params.require(:user).permit(:name, :introduction, :profile_image)
+		params.require(:user).permit(:name, :introduction, :profile_image,
+			:postcode, :prefecture_name, :address_city, :address_street, :address_building)
   end
 
   #url直接防止　メソッドを自己定義してbefore_actionで発動。
@@ -62,13 +63,5 @@ class UsersController < ApplicationController
   		redirect_to user_path(current_user)
   		end
 	 	end
-	 
-		#  application.controller.rbに設置したので不要
-		# def logged_in_user
-		# 	unless logged_in?
-		# 		falsh[:danger]="Please log in."
-		# 		redirect_to new_user_session_path
-		# 	end
-		# end
 
 end
