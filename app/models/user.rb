@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+  has_many :messages
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -94,14 +96,4 @@ class User < ApplicationRecord
     self.prefecture_code = JpPrefecture::Prefecture.find(name: prefecture_name).code
   end
 
-
-  # def geocode
-  #   uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?full_address="+self.full_address.gsub(" ", "")+"&key=AIzaSyDW0GOeuDWuLqYivC7vBa1qn7cNdj0Qadw")
-  #   res = HTTP.get(uri).to_s
-  #   response = JSON.parse(res)
-  #   self.latitude = response["results"][0]["geometry"]["location"]["lat"]
-  #   self.longitude = response["results"][0]["geometry"]["location"]["lng"]
-  # end
-
-  
 end
