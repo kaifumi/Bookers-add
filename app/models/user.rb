@@ -39,6 +39,9 @@ class User < ApplicationRecord
   # followersという外部キーをもたせる。sourceは省略してもよい。
   has_many :followers, through: :passive_relationships, source: :follower
 
+  # チャット機能
+  # has_many :messages
+
    # すでにいいねした確認
    def already_favorited?(book)
     self.favorites.exists?(book_id: book.id)

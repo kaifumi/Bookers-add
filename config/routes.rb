@@ -18,5 +18,14 @@ Rails.application.routes.draw do
   end
   resources :relationships, only: [:create, :destroy]
 
+  get "room/show"
+  # チャット機能のルーティング
+  resources :rooms do
+    member do
+      get :users
+    end
+  end
+  # フロントとバックエンドをつなげるおまじない
+  mount ActionCable.server => '/cable'
   
 end
