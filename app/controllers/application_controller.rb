@@ -3,7 +3,8 @@ class ApplicationController < ActionController::Base
 
 	before_action :authenticate_user!, except: [:top, :about]
 	before_action :configure_permitted_parameters, if: :devise_controller?
-	#デバイス機能実行前にconfigure_permitted_parametersの実行をする。
+  before_action :set_current_user
+  #デバイス機能実行前にconfigure_permitted_parametersの実行をする。
 	# protect_from_forgery with: :exception
 
   protected
@@ -32,4 +33,9 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  
+  # どこでもcurrent_userを使えるようなる
+  def set_current_user
+    @current_user = User.find_by(id: session[:user_id])
+  end
 end

@@ -79,6 +79,7 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'jquery-rails'
 
 gem "byebug"
+gem "pry-rails"
 
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
