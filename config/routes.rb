@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   get "room/show"
   # チャット機能のルーティング
   resources :rooms do
+    resources :messages
     member do
       get :users
     end

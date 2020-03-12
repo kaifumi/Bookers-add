@@ -1,8 +1,13 @@
-<li class="list-group-item">
-  <p><%= message.content %></p>
+<li class="messages list-group-item">
+  <% unless message.user_id == current_user.id %>
+    <div class="recipient_chat">
+      <%= attachment_image_tag(message.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %>
+      <p style="color:green;"><%= message.user.name%> : <%= message.content %></p>
+    </div>
+  <% else %>
+    <div class="sender_chat">
+      <%= attachment_image_tag(message.user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %>
+      <p style="color:blue;"><%= message.user.name%> : <%= message.content %></p>
+    </div>
+  <% end %>
 </li>
-<%# <% unless message.user_id == current_user.id %>
-  <%# <p style="color:blue;"><%= message.content %></p>
-<%# <% else %>
-  <%# <p style="color:red;"><%= message.content %></p>
-<%# <% end %> 

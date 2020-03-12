@@ -1,0 +1,18 @@
+<%= link_to "<< ルーム一覧", rooms_path %>
+<h1><%= "Chat Room #{@room.id}" %></h1>
+<h4 class="border"><%= "Your Name: #{current_user&.name}" %></h4>
+<div class=input>
+  <form class="form-inline">
+    <div class="form-group">
+      <input type="text" data-behavior="room_speaker" class="form-control" id="chat-input" placeholder="チャットを投稿"/>
+    </div>
+    <button class='chat_submit btn btn-primary' type="button">送信</button>
+  </form>
+</div>
+<div class="chat-member">
+</div>
+<div id="messages", data-room_id="<%= @room.id %>">
+  <ul class="list-group">
+    <%= render @messages %>
+  </ul>
+</div>
