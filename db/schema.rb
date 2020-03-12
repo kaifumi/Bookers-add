@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_115759) do
+ActiveRecord::Schema.define(version: 2020_03_11_053754) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -31,6 +31,9 @@ ActiveRecord::Schema.define(version: 2020_03_10_115759) do
 
   create_table "messages", force: :cascade do |t|
     t.string "content"
+    t.integer "user_id"
+    t.integer "room_id"
+    t.boolean "read", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -53,6 +56,16 @@ ActiveRecord::Schema.define(version: 2020_03_10_115759) do
     t.index ["followed_id"], name: "index_relationships_on_followed_id"
     t.index ["follower_id", "followed_id"], name: "index_relationships_on_follower_id_and_followed_id", unique: true
     t.index ["follower_id"], name: "index_relationships_on_follower_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.integer "sender_id"
+    t.integer "recipient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["recipient_id"], name: "index_rooms_on_recipient_id"
+    t.index ["sender_id", "recipient_id"], name: "index_rooms_on_sender_id_and_recipient_id", unique: true
+    t.index ["sender_id"], name: "index_rooms_on_sender_id"
   end
 
   create_table "users", force: :cascade do |t|
