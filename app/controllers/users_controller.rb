@@ -63,6 +63,10 @@ class UsersController < ApplicationController
 		end
 	end
 
+	def self.send_regular_mail
+		@user=User.find(1)
+		NotificationMailer.send_regular_to_user(@user).deliver
+	end
 
   private
   def user_params
