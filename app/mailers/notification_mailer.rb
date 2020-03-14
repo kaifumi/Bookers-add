@@ -10,4 +10,14 @@ class NotificationMailer < ActionMailer::Base
       format.text
     end
   end
+
+  def send_regular_to_user(user)
+    @user = user
+    mail(
+      subject: "定期メールです", #メールのタイトル
+      to: @user.email #宛先
+    ) do |format|
+      format.text
+    end
+  end
 end

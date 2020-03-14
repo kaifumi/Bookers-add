@@ -95,3 +95,6 @@ gem 'dotenv-rails'
 
 gem 'http'
 
+# crontab管理
+gem 'whenever', :require => false
+
